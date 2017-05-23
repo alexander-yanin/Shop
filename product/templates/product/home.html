@@ -1,0 +1,36 @@
+{%extends 'product/base.html'%}
+{%load static%}
+
+{%block content%}
+<div class="row">
+    {%for product in products%}
+    <div class="col-md-3 col-sm-3">
+        <div class="tovar">
+            <div class="photo-tovar"><img src="{{BASE_URL}}/media/{{product.main_img}}" width="100%"></div>
+            <div class="info">
+                <span>{{product.name}}</span><br>
+                <span>{{product.price}} руб.</span>
+            </div>
+            <a href="{%url 'product:prod_page' pk=product.pk%}"><div class="about">подробнее</div></a>
+        </div>
+    </div>
+    {%endfor%}
+</div>
+<div class="row fluid">
+    <div class="col-md-12">
+        <ul class="paginator nav fluid">
+            {%for page in products.paginator.page_range%}
+            {%if page == 1 and  page == products.number%}
+            <li class="cur_page"><a href="{%url 'product:home'%}">{{page}}</a></li>
+            {%elif page == 1%}
+            <li class="another_page"><a href="{%url 'product:home'%}">{{page}}</a></li>
+            {%elif page == products.number%}
+            <li class="another_page"><a href="{%url 'product:home_pag' page=page %}">{{page}}</a></li>
+            {%else%}
+            <li class="another_page"><a href="{%url 'product:home_pag' page=page %}">{{page}}</a></li>
+            {%endif%}
+            {%endfor%}
+        </ul>
+    </div>
+</div>
+{%endblock%}

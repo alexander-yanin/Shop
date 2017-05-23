@@ -1,0 +1,41 @@
+{%extends 'product/base.html'%}
+{%load staticfiles%}
+
+{%block content%}
+
+<div class="row">
+    <div class="col-md-8">
+        <div>
+        <img src="{{BASE_URL}}/media/{{product.main_img}}" class="main_img"> 
+        </div>
+        <div class="gallery row">
+            <div class="col-md-3">
+                <img src="{{BASE_URL}}/media/{{product.main_img}}" width="100%">
+            </div>
+            {%for img in gallery%}
+            <div class="col-md-3">
+                <img src="{{BASE_URL}}/media/{{img.path}}" width="100%">
+            </div>
+            {%endfor%}
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div>
+            <span class="product_name">{{product.name}}</span>
+            <span class="product_price">{{product.price}} руб.</span>
+        </div>
+        <div class="add_to_cart">
+            <form action="{%url 'product:prod_page' product.pk%}" method="POST">
+                {%csrf_token%}
+                <input type="hidden" name="operation" value="add">
+                <input type="submit" value="добавить в корзину">
+            </form>
+        </div>
+        <div class="product_description">
+            <span>О товаре</span>
+            {{product.description}}
+        </div> 
+    </div>
+</div>
+
+{%endblock%}

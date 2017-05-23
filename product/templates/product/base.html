@@ -1,0 +1,51 @@
+{%load staticfiles%}
+<html>
+<head>
+<title>SHop</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="{%static 'product/css/bootstrap.min.css'%}">
+<link rel="stylesheet" type="text/css" href="{%static 'product/css/style.css'%}">
+</head>
+<body>
+    <div id="page-wrapper">
+        <div class="header row fluid">
+            <div class="col-md-10">
+                <a class="home_page" href="{%url 'product:home'%}"><h1 class="logo">
+                    <font color="#343232">Shop.</font><font color="#56b6d2">ru</font>
+                    <br>
+                    <font class="head">магазин одежды</font>
+                </h1></a>
+            </div>
+            <div class="col-md-2">
+                <a class="cart" href="{%url 'product:cart'%}">корзина({{count}})</a>
+            </div>
+        </div>
+        <div class="navmenu row fluid">
+            <div class="col-md-7">
+                <div class="navbar-inner menu">
+                    <ul class="nav">
+                        <li><a href="{%url 'product:home_filt' filt='clothes'%}">одежда</a></li>
+                        <li><a href="{%url 'product:home_filt' filt='footwear'%}">обувь</a></li>
+                        <li><a href="{%url 'product:home_filt' filt='accessory'%}">аксессуары</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="search">
+                    <input class="search" type="text" placeholder="поиск">
+                </div>
+            </div>
+        </div>
+        <div class="content col-md-8">
+            {%block content%}
+            {%endblock%}
+        </div>
+    </div>    
+
+
+    <script src="{%static 'product/js/jquery-3.2.0.min.js'%}"></script>
+    <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
+    <script src="https://npmcdn.com/bootstrap@4.0.0-alpha.5/dist/js/bootstrap.min.js"></script>
+    <script src="{%static 'product/js/script.js'%}"></script>
+</body>
+</html>

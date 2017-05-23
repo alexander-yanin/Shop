@@ -1,0 +1,44 @@
+{%extends 'product/base.html'%}
+{%load static%}
+
+{%block content%}
+
+<div class="row">
+    {%if orders%}
+    <div class="col-md-7">
+        <form method="POST" action="{%url 'product:cart'%}">
+            {%csrf_token%}
+         <div class="del_ord"><input type="submit" name="del"  value="удалить"></div>
+        {%for order in orders%}
+        <div class="row row_product">
+            <div class="col-md-1">
+                <input type="checkbox" name="select" value="{{order.product.pk}}">
+            </div>
+            <div class="col-md-2">
+                <img class="cart_img" src="{{BASE_URL}}/media/{{order.product.main_img}}">
+            </div>
+            <div class="col-md-4">{{order.product.name}}<br>{{order.product.price}} руб.</div>
+            <div class="col-md-122 count_div"><span>кол-во: </span><input min="1" name="{{order.product.pk}}" class="count_pr" type="number" value="{{order.count}}"></div>
+        </div>
+        {%endfor%}
+        </form>
+    </div>
+    <div class="col-md-5">
+        <form action="{%url 'product:cart'%}" method="POST" class="send_order">
+            {%csrf_token%}
+            <label for="fio">Ф.И.О</label><br>
+            {{form.fio}}<br>
+            <label for="phone">Телефон</label><br>
+            {{form.phone}}<br>
+            <label for="mail">Эл. почта</label><br>
+            {{form.mail}}<br><br>
+            <input type="submit" value="оформить заказ">
+        </form>
+        <div class="res">общая сумма: <span id="res">{{sum}}</span> руб.</div>
+    </div>
+    {%else%}
+    <h2>Корзина пуста<h2>
+    {%endif%}
+</div>
+
+{%endblock%}
